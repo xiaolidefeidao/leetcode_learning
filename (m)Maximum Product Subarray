@@ -1,1 +1,23 @@
 #https://leetcode.com/problems/maximum-product-subarray/
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        _max,_min,ans=0,0,nums[0]
+        if nums[0]>0:
+            _max=nums[0]
+        else:
+            _min=nums[0]
+        for i in range(1,len(nums)):
+            if nums[i]>0:
+                _max,_min=max(_max*nums[i],nums[i]),_min*nums[i]
+            else:
+                _max,_min=_min*nums[i],min(_max*nums[i],nums[i])
+            ans=max(ans,_max)
+        return ans
