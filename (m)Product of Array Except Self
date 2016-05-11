@@ -16,3 +16,20 @@ class Solution(object):
             right*=nums[l-1]
             l-=1
         return result
+
+变形2：
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        l=len(nums)
+        result,left,right=[1 for i in range(l)],1,1
+        for i in range(l):
+            result[i]*=left
+            left*=nums[i]
+        for j in range(l-1,-1,-1):
+            result[j]*=right
+            right*=nums[j]
+        return result
