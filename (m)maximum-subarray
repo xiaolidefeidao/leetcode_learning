@@ -10,3 +10,19 @@ class Solution(object):
             if nums[i-1] > 0:
                 nums[i] += nums[i-1]
         return max(nums)
+
+优化：
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max,temp=nums[0],0
+        for i in range(len(nums)):
+            temp+=nums[i];
+            if temp>max:
+                max=temp
+            if temp<0:
+                temp=0
+        return max
