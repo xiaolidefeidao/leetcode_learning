@@ -1,0 +1,67 @@
+//for (var i = 0; i < 500; i++) {
+//    var j = Math.floor(500 * Math.random());
+//    console.log(j + ',')
+//
+//}
+以下的测试数组都是包含500个数字：
+
+//测试sort()的性能
+var a= [...];
+console.time('1');
+//sort()默认是按照字符编码排序,此处需要comparefn
+var x=a.sort(function(a,b){return a-b;});
+console.log(x);
+console.timeEnd('1');//耗时13ms
+
+
+//测试使用数组的快排性能
+var b= [...];
+function quickSort(arr){
+    if (arr.length<2){return arr}
+    var midKey=Math.floor(arr.length/2),
+        key=arr.splice(midKey,1)[0],
+        left=[],
+        right=[];
+    arr.forEach(function(val){
+        val<=key?left.push(val):right.push(val)
+    });
+    return quickSort(left).concat(key,quickSort(right))
+}
+console.time('2');
+var y=quickSort(b);
+console.log(y);
+console.timeEnd('2');//耗时5ms
+
+
+//测试不使用数组的快排性能
+var c= [...];
+function quickSort2(arr){
+    qSort(arr,0,arr.length-1);
+    return arr;
+}
+function qSort(arr,low,high){
+    if(low<high){
+        var partKey=partition(arr,low,high);
+        qSort(arr,low,partKey-1);
+        qSort(arr,partKey+1,high);
+    }
+}
+function partition(arr,low,high){
+    var key=arr[low];
+    while(low<high){
+        while(low<high&&arr[high]>=key){
+            high--;
+        }
+        arr[low]=arr[high];
+        while(low<high&&arr[low]<=key){
+            low++;
+        }
+        arr[high]=arr[low];
+    }
+    arr[low]=key;
+    return low;
+}
+console.time('3');
+var z=quickSort2(c);
+console.log(z);
+console.timeEnd('3');//耗时2ms
