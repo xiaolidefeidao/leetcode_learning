@@ -1,0 +1,46 @@
+function Node(val,left,right){
+    this.val=val||'';
+    this.left=left||'';
+    this.right=right||'';
+}
+var node7=new Node(7);
+var node6=new Node(6);
+var node5=new Node(5);
+var node4=new Node(4,node6,node7);
+var node3=new Node(3,'',node5);
+var node2=new Node(2,node4);
+var node1=new Node(1,node2,node3);
+//console.log(node1.val);
+//深度遍历-递归
+function depthTraversal(root){
+    if (root){
+        console.log(root.val);
+        depthTraversal(root.left);
+        depthTraversal(root.right);
+    }
+}
+//depthTraversal(node1);
+
+//深度遍历-非递归
+function depthTraversal2(root){
+    var stack=[root];
+    while(stack.length>0){
+        var temp=stack.pop();
+        console.log(temp.val);
+        if(temp.right) stack.push(temp.right);
+        if(temp.left) stack.push(temp.left);
+    }
+}
+//depthTraversal2(node1);
+
+//广度优先遍历-非递归
+function breadthTraversal(root){
+    var queue=[root];
+    while(queue.length>0){
+        var temp=queue.shift();
+        console.log(temp.val);
+        temp.left&&queue.push(temp.left);
+        temp.right&&queue.push(temp.right);
+    }
+}
+breadthTraversal(node1);
